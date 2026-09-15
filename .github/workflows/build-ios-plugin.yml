@@ -53,26 +53,32 @@ jobs:
           # Xcode 可能把 PNG 转成 Apple 专用 CgBI。回填仓库原图，保证 HBuilderX、
           # Windows IDE 与 iOS 都能读取同一份带透明通道的引导图。
           cp FaceCaptureIOS/face_guide_overlay.png artifact/ios/UniFaceCapture.framework/
+          cp FaceCaptureIOS/camera_switch.png artifact/ios/UniFaceCapture.framework/
           python3 - <<'PY'
           from pathlib import Path
           import struct
 
-          image = Path("artifact/ios/UniFaceCapture.framework/face_guide_overlay.png")
-          data = image.read_bytes()
-          assert data.startswith(b"\x89PNG\r\n\x1a\n"), "invalid PNG signature"
-          width, height, bit_depth, color_type = struct.unpack(">IIBB", data[16:26])
-          assert (width, height) == (512, 512), "unexpected guide image size"
-          assert bit_depth == 8 and color_type == 6, "guide image must be 8-bit RGBA"
-          offset = 8
-          chunks = []
-          while offset < len(data):
-              length = struct.unpack(">I", data[offset:offset + 4])[0]
-              chunk = data[offset + 4:offset + 8]
-              chunks.append(chunk)
-              offset += length + 12
-              if chunk == b"IEND":
-                  break
-          assert b"CgBI" not in chunks, "Apple CgBI PNG must not be packaged"
+          expected = {
+              "face_guide_overlay.png": (512, 512),
+              "camera_switch.png": (128, 128),
+          }
+          for name, dimensions in expected.items():
+              image = Path("artifact/ios/UniFaceCapture.framework") / name
+              data = image.read_bytes()
+              assert data.startswith(b"\x89PNG\r\n\x1a\n"), f"invalid PNG signature: {name}"
+              width, height, bit_depth, color_type = struct.unpack(">IIBB", data[16:26])
+              assert (width, height) == dimensions, f"unexpected image size: {name}"
+              assert bit_depth == 8 and color_type == 6, f"image must be 8-bit RGBA: {name}"
+              offset = 8
+              chunks = []
+              while offset < len(data):
+                  length = struct.unpack(">I", data[offset:offset + 4])[0]
+                  chunk = data[offset + 4:offset + 8]
+                  chunks.append(chunk)
+                  offset += length + 12
+                  if chunk == b"IEND":
+                      break
+              assert b"CgBI" not in chunks, f"Apple CgBI PNG must not be packaged: {name}"
           PY
           cp ios-package.json artifact/package.json
           ditto -c -k --sequesterRsrc --keepParent artifact UniFaceCapture-ios-plugin.zip

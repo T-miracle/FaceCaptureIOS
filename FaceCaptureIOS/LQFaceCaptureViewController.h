@@ -2,7 +2,7 @@
 
 typedef void (^LQFaceCaptureCompletion)(NSDictionary *result);
 
-/** Full-screen portrait front-camera flow that returns one square JPEG. */
+/** Full-screen portrait camera flow with pinch zoom and camera switching that returns one square JPEG. */
 @interface LQFaceCaptureViewController : UIViewController
 
 - (instancetype)initWithCompletion:(LQFaceCaptureCompletion)completion;

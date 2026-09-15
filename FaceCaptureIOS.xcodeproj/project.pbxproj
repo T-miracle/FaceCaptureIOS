@@ -12,6 +12,7 @@
 		B10000000000000000000005 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B10000000000000000000015 /* AVFoundation.framework */; };
 		B10000000000000000000006 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B10000000000000000000016 /* UIKit.framework */; };
 		B10000000000000000000007 /* face_guide_overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000017 /* face_guide_overlay.png */; };
+		B10000000000000000000008 /* camera_switch.png in Resources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000020 /* camera_switch.png */; };
 
 		B10000000000000000000011 /* LQFaceCaptureModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LQFaceCaptureModule.h; sourceTree = "<group>"; };
 		B10000000000000000000012 /* LQFaceCaptureModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LQFaceCaptureModule.m; sourceTree = "<group>"; };
@@ -22,14 +23,15 @@
 		B10000000000000000000017 /* face_guide_overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = face_guide_overlay.png; sourceTree = "<group>"; };
 		B10000000000000000000018 /* UniFaceCapture.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UniFaceCapture.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B10000000000000000000019 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B10000000000000000000020 /* camera_switch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera_switch.png; sourceTree = "<group>"; };
 
 		B10000000000000000000021 /* Frameworks */ = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (B10000000000000000000005 /* AVFoundation.framework in Frameworks */, B10000000000000000000006 /* UIKit.framework in Frameworks */, ); runOnlyForDeploymentPostprocessing = 0; };
 		B10000000000000000000022 /* Headers */ = {isa = PBXHeadersBuildPhase; buildActionMask = 2147483647; files = (B10000000000000000000001 /* LQFaceCaptureModule.h in Headers */, B10000000000000000000003 /* LQFaceCaptureViewController.h in Headers */, ); runOnlyForDeploymentPostprocessing = 0; };
 		B10000000000000000000023 /* Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (B10000000000000000000002 /* LQFaceCaptureModule.m in Sources */, B10000000000000000000004 /* LQFaceCaptureViewController.m in Sources */, ); runOnlyForDeploymentPostprocessing = 0; };
-		B10000000000000000000024 /* Resources */ = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (B10000000000000000000007 /* face_guide_overlay.png in Resources */, ); runOnlyForDeploymentPostprocessing = 0; };
+		B10000000000000000000024 /* Resources */ = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (B10000000000000000000007 /* face_guide_overlay.png in Resources */, B10000000000000000000008 /* camera_switch.png in Resources */, ); runOnlyForDeploymentPostprocessing = 0; };
 
 		B10000000000000000000031 = {isa = PBXGroup; children = (B10000000000000000000032 /* FaceCaptureIOS */, B10000000000000000000033 /* Frameworks */, B10000000000000000000034 /* Products */, ); sourceTree = "<group>"; };
-		B10000000000000000000032 /* FaceCaptureIOS */ = {isa = PBXGroup; children = (B10000000000000000000011 /* LQFaceCaptureModule.h */, B10000000000000000000012 /* LQFaceCaptureModule.m */, B10000000000000000000013 /* LQFaceCaptureViewController.h */, B10000000000000000000014 /* LQFaceCaptureViewController.m */, B10000000000000000000017 /* face_guide_overlay.png */, B10000000000000000000019 /* Info.plist */, ); path = FaceCaptureIOS; sourceTree = "<group>"; };
+		B10000000000000000000032 /* FaceCaptureIOS */ = {isa = PBXGroup; children = (B10000000000000000000011 /* LQFaceCaptureModule.h */, B10000000000000000000012 /* LQFaceCaptureModule.m */, B10000000000000000000013 /* LQFaceCaptureViewController.h */, B10000000000000000000014 /* LQFaceCaptureViewController.m */, B10000000000000000000017 /* face_guide_overlay.png */, B10000000000000000000020 /* camera_switch.png */, B10000000000000000000019 /* Info.plist */, ); path = FaceCaptureIOS; sourceTree = "<group>"; };
 		B10000000000000000000033 /* Frameworks */ = {isa = PBXGroup; children = (B10000000000000000000015 /* AVFoundation.framework */, B10000000000000000000016 /* UIKit.framework */, ); name = Frameworks; sourceTree = "<group>"; };
 		B10000000000000000000034 /* Products */ = {isa = PBXGroup; children = (B10000000000000000000018 /* UniFaceCapture.framework */, ); name = Products; sourceTree = "<group>"; };
 

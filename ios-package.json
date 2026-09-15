@@ -1,8 +1,8 @@
 {
   "name": "Uni Face Capture",
   "id": "uni-face-capture",
-  "version": "1.0.0",
-  "description": "iOS 原生竖屏人脸拍照，提供正方形引导框裁切与单张图片回传。",
+  "version": "1.1.0",
+  "description": "iOS 原生竖屏人脸拍照，支持双指缩放、前后摄像头切换及正方形裁切。",
   "_dp_type": "nativeplugin",
   "_dp_nativeplugin": {
     "ios": {
