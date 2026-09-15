@@ -1,0 +1,83 @@
+name: Build iOS Uni Face Capture Plugin
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'FaceCaptureIOS/**'
+      - 'FaceCaptureIOS.xcodeproj/**'
+      - 'ios-package.json'
+      - '.github/workflows/build-ios-plugin.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  build-framework:
+    runs-on: macos-14
+    timeout-minutes: 30
+    env:
+      PROJECT: FaceCaptureIOS.xcodeproj
+      SCHEME: FaceCaptureIOS
+      DCLOUD_SDK_REPOSITORY: ${{ vars.DCLOUD_IOS_SDK_REPOSITORY }}
+      DCLOUD_SDK_RELEASE_TAG: ${{ vars.DCLOUD_IOS_SDK_RELEASE_TAG }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download DCloud iOS SDK
+        env:
+          GH_TOKEN: ${{ secrets.DCLOUD_SDK_REPO_TOKEN }}
+        run: |
+          test -n "$GH_TOKEN" || { echo "::error::Set DCLOUD_SDK_REPO_TOKEN."; exit 1; }
+          test -n "$DCLOUD_SDK_REPOSITORY" || { echo "::error::Set DCLOUD_IOS_SDK_REPOSITORY."; exit 1; }
+          test -n "$DCLOUD_SDK_RELEASE_TAG" || { echo "::error::Set DCLOUD_IOS_SDK_RELEASE_TAG."; exit 1; }
+          mkdir -p vendor/download vendor/dcloud-ios-sdk
+          gh release download "$DCLOUD_SDK_RELEASE_TAG" --repo "$DCLOUD_SDK_REPOSITORY" --pattern 'SDK.zip' --dir vendor/download
+          ditto -x -k vendor/download/SDK.zip vendor/dcloud-ios-sdk
+          SDK_HEADER="$(find vendor/dcloud-ios-sdk -type f -name 'DCUniModule.h' -print -quit)"
+          test -n "$SDK_HEADER"
+          echo "DCUNI_SDK_INC_DIR=$(dirname "$(dirname "$SDK_HEADER")")" >> "$GITHUB_ENV"
+      - name: Build static framework
+        run: |
+          xcodebuild build \
+            -project "$PROJECT" \
+            -scheme "$SCHEME" \
+            -configuration Release \
+            -sdk iphoneos \
+            -destination 'generic/platform=iOS' \
+            BUILD_DIR="$PWD/build" \
+            CODE_SIGNING_ALLOWED=NO
+      - name: Package Uni-App local plugin artifact
+        run: |
+          mkdir -p artifact/ios
+          cp -R build/Release-iphoneos/UniFaceCapture.framework artifact/ios/
+          # Xcode 可能把 PNG 转成 Apple 专用 CgBI。回填仓库原图，保证 HBuilderX、
+          # Windows IDE 与 iOS 都能读取同一份带透明通道的引导图。
+          cp FaceCaptureIOS/face_guide_overlay.png artifact/ios/UniFaceCapture.framework/
+          python3 - <<'PY'
+          from pathlib import Path
+          import struct
+
+          image = Path("artifact/ios/UniFaceCapture.framework/face_guide_overlay.png")
+          data = image.read_bytes()
+          assert data.startswith(b"\x89PNG\r\n\x1a\n"), "invalid PNG signature"
+          width, height, bit_depth, color_type = struct.unpack(">IIBB", data[16:26])
+          assert (width, height) == (512, 512), "unexpected guide image size"
+          assert bit_depth == 8 and color_type == 6, "guide image must be 8-bit RGBA"
+          offset = 8
+          chunks = []
+          while offset < len(data):
+              length = struct.unpack(">I", data[offset:offset + 4])[0]
+              chunk = data[offset + 4:offset + 8]
+              chunks.append(chunk)
+              offset += length + 12
+              if chunk == b"IEND":
+                  break
+          assert b"CgBI" not in chunks, "Apple CgBI PNG must not be packaged"
+          PY
+          cp ios-package.json artifact/package.json
+          ditto -c -k --sequesterRsrc --keepParent artifact UniFaceCapture-ios-plugin.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: UniFaceCapture-ios-plugin
+          path: UniFaceCapture-ios-plugin.zip
+          retention-days: 30

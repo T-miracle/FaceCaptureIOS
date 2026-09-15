@@ -1,0 +1,48 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {};
+	objectVersion = 56;
+	objects = {
+
+		B10000000000000000000001 /* LQFaceCaptureModule.h in Headers */ = {isa = PBXBuildFile; fileRef = B10000000000000000000011 /* LQFaceCaptureModule.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B10000000000000000000002 /* LQFaceCaptureModule.m in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000012 /* LQFaceCaptureModule.m */; };
+		B10000000000000000000003 /* LQFaceCaptureViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = B10000000000000000000013 /* LQFaceCaptureViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B10000000000000000000004 /* LQFaceCaptureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000014 /* LQFaceCaptureViewController.m */; };
+		B10000000000000000000005 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B10000000000000000000015 /* AVFoundation.framework */; };
+		B10000000000000000000006 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B10000000000000000000016 /* UIKit.framework */; };
+		B10000000000000000000007 /* face_guide_overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = B10000000000000000000017 /* face_guide_overlay.png */; };
+
+		B10000000000000000000011 /* LQFaceCaptureModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LQFaceCaptureModule.h; sourceTree = "<group>"; };
+		B10000000000000000000012 /* LQFaceCaptureModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LQFaceCaptureModule.m; sourceTree = "<group>"; };
+		B10000000000000000000013 /* LQFaceCaptureViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LQFaceCaptureViewController.h; sourceTree = "<group>"; };
+		B10000000000000000000014 /* LQFaceCaptureViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LQFaceCaptureViewController.m; sourceTree = "<group>"; };
+		B10000000000000000000015 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		B10000000000000000000016 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		B10000000000000000000017 /* face_guide_overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = face_guide_overlay.png; sourceTree = "<group>"; };
+		B10000000000000000000018 /* UniFaceCapture.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UniFaceCapture.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B10000000000000000000019 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+
+		B10000000000000000000021 /* Frameworks */ = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (B10000000000000000000005 /* AVFoundation.framework in Frameworks */, B10000000000000000000006 /* UIKit.framework in Frameworks */, ); runOnlyForDeploymentPostprocessing = 0; };
+		B10000000000000000000022 /* Headers */ = {isa = PBXHeadersBuildPhase; buildActionMask = 2147483647; files = (B10000000000000000000001 /* LQFaceCaptureModule.h in Headers */, B10000000000000000000003 /* LQFaceCaptureViewController.h in Headers */, ); runOnlyForDeploymentPostprocessing = 0; };
+		B10000000000000000000023 /* Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (B10000000000000000000002 /* LQFaceCaptureModule.m in Sources */, B10000000000000000000004 /* LQFaceCaptureViewController.m in Sources */, ); runOnlyForDeploymentPostprocessing = 0; };
+		B10000000000000000000024 /* Resources */ = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (B10000000000000000000007 /* face_guide_overlay.png in Resources */, ); runOnlyForDeploymentPostprocessing = 0; };
+
+		B10000000000000000000031 = {isa = PBXGroup; children = (B10000000000000000000032 /* FaceCaptureIOS */, B10000000000000000000033 /* Frameworks */, B10000000000000000000034 /* Products */, ); sourceTree = "<group>"; };
+		B10000000000000000000032 /* FaceCaptureIOS */ = {isa = PBXGroup; children = (B10000000000000000000011 /* LQFaceCaptureModule.h */, B10000000000000000000012 /* LQFaceCaptureModule.m */, B10000000000000000000013 /* LQFaceCaptureViewController.h */, B10000000000000000000014 /* LQFaceCaptureViewController.m */, B10000000000000000000017 /* face_guide_overlay.png */, B10000000000000000000019 /* Info.plist */, ); path = FaceCaptureIOS; sourceTree = "<group>"; };
+		B10000000000000000000033 /* Frameworks */ = {isa = PBXGroup; children = (B10000000000000000000015 /* AVFoundation.framework */, B10000000000000000000016 /* UIKit.framework */, ); name = Frameworks; sourceTree = "<group>"; };
+		B10000000000000000000034 /* Products */ = {isa = PBXGroup; children = (B10000000000000000000018 /* UniFaceCapture.framework */, ); name = Products; sourceTree = "<group>"; };
+
+		B10000000000000000000041 /* FaceCaptureIOS */ = {isa = PBXNativeTarget; buildConfigurationList = B10000000000000000000051 /* Build configuration list for PBXNativeTarget "FaceCaptureIOS" */; buildPhases = (B10000000000000000000023 /* Sources */, B10000000000000000000021 /* Frameworks */, B10000000000000000000022 /* Headers */, B10000000000000000000024 /* Resources */, ); buildRules = (); dependencies = (); name = FaceCaptureIOS; productName = UniFaceCapture; productReference = B10000000000000000000018 /* UniFaceCapture.framework */; productType = "com.apple.product-type.framework.static"; };
+
+		B10000000000000000000061 /* Project object */ = {isa = PBXProject; attributes = {BuildIndependentTargetsInParallel = 1; LastUpgradeCheck = 1600; TargetAttributes = {B10000000000000000000041 = {CreatedOnToolsVersion = 16.0;};};}; buildConfigurationList = B10000000000000000000062 /* Build configuration list for PBXProject "FaceCaptureIOS" */; compatibilityVersion = "Xcode 14.0"; developmentRegion = en; hasScannedForEncodings = 0; knownRegions = (en, Base, ); mainGroup = B10000000000000000000031; productRefGroup = B10000000000000000000034 /* Products */; projectDirPath = ""; projectRoot = ""; targets = (B10000000000000000000041 /* FaceCaptureIOS */, ); };
+
+		B10000000000000000000062 /* Build configuration list for PBXProject "FaceCaptureIOS" */ = {isa = XCConfigurationList; buildConfigurations = (B10000000000000000000063 /* Debug */, B10000000000000000000064 /* Release */, ); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+		B10000000000000000000051 /* Build configuration list for PBXNativeTarget "FaceCaptureIOS" */ = {isa = XCConfigurationList; buildConfigurations = (B10000000000000000000052 /* Debug */, B10000000000000000000053 /* Release */, ); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+		B10000000000000000000063 /* Debug */ = {isa = XCBuildConfiguration; buildSettings = {CLANG_ENABLE_MODULES = YES; CLANG_ENABLE_OBJC_ARC = YES; IPHONEOS_DEPLOYMENT_TARGET = 13.0; SDKROOT = iphoneos;}; name = Debug; };
+		B10000000000000000000064 /* Release */ = {isa = XCBuildConfiguration; buildSettings = {CLANG_ENABLE_MODULES = YES; CLANG_ENABLE_OBJC_ARC = YES; IPHONEOS_DEPLOYMENT_TARGET = 13.0; SDKROOT = iphoneos;}; name = Release; };
+		B10000000000000000000052 /* Debug */ = {isa = XCBuildConfiguration; buildSettings = {CODE_SIGNING_ALLOWED = NO; COMPRESS_PNG_FILES = NO; DEFINES_MODULE = YES; HEADER_SEARCH_PATHS = ("$(DCUNI_SDK_INC_DIR)", "$(DCUNI_SDK_INC_DIR)/DCUni", "$(DCUNI_SDK_INC_DIR)/weexHeader", ); INFOPLIST_FILE = FaceCaptureIOS/Info.plist; MACH_O_TYPE = staticlib; PRODUCT_BUNDLE_IDENTIFIER = io.github.unifacecapture; PRODUCT_MODULE_NAME = UniFaceCapture; PRODUCT_NAME = UniFaceCapture; SKIP_INSTALL = YES;}; name = Debug; };
+		B10000000000000000000053 /* Release */ = {isa = XCBuildConfiguration; buildSettings = {CODE_SIGNING_ALLOWED = NO; COMPRESS_PNG_FILES = NO; DEFINES_MODULE = YES; HEADER_SEARCH_PATHS = ("$(DCUNI_SDK_INC_DIR)", "$(DCUNI_SDK_INC_DIR)/DCUni", "$(DCUNI_SDK_INC_DIR)/weexHeader", ); INFOPLIST_FILE = FaceCaptureIOS/Info.plist; MACH_O_TYPE = staticlib; PRODUCT_BUNDLE_IDENTIFIER = io.github.unifacecapture; PRODUCT_MODULE_NAME = UniFaceCapture; PRODUCT_NAME = UniFaceCapture; SKIP_INSTALL = YES;}; name = Release; };
+	};
+	rootObject = B10000000000000000000061 /* Project object */;
+}
