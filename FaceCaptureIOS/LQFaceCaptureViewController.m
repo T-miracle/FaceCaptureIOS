@@ -1,8 +1,7 @@
 #import "LQFaceCaptureViewController.h"
 #import <AVFoundation/AVFoundation.h>
 
-static const CGFloat LQFaceFrameWidthFraction = 0.85;
-static const CGFloat LQFaceFrameCenterYFraction = 1.0 / 3.0;
+static const CGFloat LQFaceFrameWidthFraction = 0.90;
 
 @interface LQFaceCaptureViewController () <AVCapturePhotoCaptureDelegate>
 @property (nonatomic, copy) LQFaceCaptureCompletion completion;
@@ -66,7 +65,7 @@ static const CGFloat LQFaceFrameCenterYFraction = 1.0 / 3.0;
     CGFloat width = CGRectGetWidth(self.view.bounds);
     CGFloat height = CGRectGetHeight(self.view.bounds);
     CGFloat side = width * LQFaceFrameWidthFraction;
-    CGFloat guideCenterY = height * LQFaceFrameCenterYFraction;
+    CGFloat guideCenterY = height / 2.0;
     CGFloat guideTop = MAX(0, guideCenterY - side / 2.0);
     self.guideRect = CGRectMake((width - side) / 2.0, guideTop, side, side);
     CGFloat minX = CGRectGetMinX(self.guideRect);
@@ -85,11 +84,11 @@ static const CGFloat LQFaceFrameCenterYFraction = 1.0 / 3.0;
     self.backButton.frame = CGRectMake(12, safeTop + 4.0, 52, 52);
     self.zoomHintLabel.frame = CGRectMake(20, maxY + 14.0, width - 40.0, 24.0);
     CGFloat shutterSide = 76.0;
-    CGFloat desiredCenterY = maxY + 64.0 + shutterSide / 2.0;
     CGFloat safeBottom = self.view.safeAreaInsets.bottom;
-    CGFloat maximumCenterY = height - safeBottom - shutterSide / 2.0 - 12.0;
+    CGFloat bottomClearance = MAX(safeBottom + 12.0, height / 8.0);
     self.shutterButton.bounds = CGRectMake(0, 0, shutterSide, shutterSide);
-    self.shutterButton.center = CGPointMake(width / 2.0, MIN(desiredCenterY, maximumCenterY));
+    self.shutterButton.center = CGPointMake(width / 2.0,
+        height - bottomClearance - shutterSide / 2.0);
     self.shutterButton.layer.cornerRadius = shutterSide / 2.0;
     CGFloat switchSide = 52.0;
     CGFloat desiredSwitchCenterX = CGRectGetMidX(self.shutterButton.frame) + 90.0;
