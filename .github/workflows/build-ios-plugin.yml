@@ -23,6 +23,8 @@ jobs:
       DCLOUD_SDK_RELEASE_TAG: ${{ vars.DCLOUD_IOS_SDK_RELEASE_TAG }}
     steps:
       - uses: actions/checkout@v4
+      - name: Verify embedded resource fallbacks
+        run: python3 tests/test_resource_fallback.py
       - name: Download DCloud iOS SDK
         env:
           GH_TOKEN: ${{ secrets.DCLOUD_SDK_REPO_TOKEN }}
@@ -80,6 +82,7 @@ jobs:
                       break
               assert b"CgBI" not in chunks, f"Apple CgBI PNG must not be packaged: {name}"
           PY
+          python3 tests/test_resource_fallback.py
           cp ios-package.json artifact/package.json
           ditto -c -k --sequesterRsrc --keepParent artifact UniFaceCapture-ios-plugin.zip
       - uses: actions/upload-artifact@v4

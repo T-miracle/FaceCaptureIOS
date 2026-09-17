@@ -2,6 +2,8 @@
 
 面向传统 Uni-App（Vue 2 / App-Plus）的 iOS 原生 Module。插件固定使用竖屏并隐藏状态栏；默认后置摄像头，可切换前后摄像头及双指缩放。正方形取景框宽度为屏幕宽度的 90%，在屏幕居中位置基础上向上移动取景框自身高度的 1/3，图 1 作为取景框顶层引导图；拍照按钮和镜头切换按钮位于底部，并保留约 1/8 屏幕高度的安全距离。
 
+引导图与摄像头切换图标会依次从类 Bundle、主 Bundle 和 `UniFaceCapture.framework` 加载，并以内嵌 PNG 数据兜底，兼容 Uni-App 将静态 Framework 链接进宿主后的资源布局。
+
 ## 插件信息
 
 - 插件 ID / Module 名称：`uni-face-capture`

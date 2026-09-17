@@ -1,4 +1,5 @@
 #import "LQFaceCaptureViewController.h"
+#import "LQFaceCaptureResourceData.h"
 #import <AVFoundation/AVFoundation.h>
 
 static const CGFloat LQFaceFrameWidthFraction = 0.90;
@@ -188,28 +189,45 @@ static const CGFloat LQFaceFrameWidthFraction = 0.90;
     }
 }
 
-- (UIImage *)loadGuideImage {
-    NSArray<NSBundle *> *bundles = @[[NSBundle bundleForClass:self.class], NSBundle.mainBundle];
+- (UIImage *)resourceImageNamed:(NSString *)name fallbackBase64:(NSString *)fallbackBase64 {
+    NSMutableArray<NSBundle *> *bundles = [NSMutableArray array];
+    NSBundle *classBundle = [NSBundle bundleForClass:self.class];
+    if (classBundle != nil) {
+        [bundles addObject:classBundle];
+    }
+    if (![bundles containsObject:NSBundle.mainBundle]) {
+        [bundles addObject:NSBundle.mainBundle];
+    }
+    NSString *frameworksPath = NSBundle.mainBundle.privateFrameworksPath;
+    if (frameworksPath.length > 0) {
+        NSBundle *frameworkBundle = [NSBundle bundleWithPath:
+            [frameworksPath stringByAppendingPathComponent:@"UniFaceCapture.framework"]];
+        if (frameworkBundle != nil && ![bundles containsObject:frameworkBundle]) {
+            [bundles addObject:frameworkBundle];
+        }
+    }
     for (NSBundle *bundle in bundles) {
-        NSString *path = [bundle pathForResource:@"face_guide_overlay" ofType:@"png"];
+        NSString *path = [bundle pathForResource:name ofType:@"png"];
         UIImage *image = path.length > 0 ? [UIImage imageWithContentsOfFile:path] : nil;
         if (image != nil) {
             return image;
         }
     }
-    return [UIImage imageNamed:@"face_guide_overlay"];
+    UIImage *namedImage = [UIImage imageNamed:name];
+    if (namedImage != nil) {
+        return namedImage;
+    }
+    NSData *data = [[NSData alloc] initWithBase64EncodedString:fallbackBase64 options:0];
+    return data.length > 0 ? [UIImage imageWithData:data] : nil;
+}
+
+- (UIImage *)loadGuideImage {
+    return [self resourceImageNamed:@"face_guide_overlay" fallbackBase64:LQFaceGuideBase64];
 }
 
 - (UIImage *)loadSwitchImage {
-    NSArray<NSBundle *> *bundles = @[[NSBundle bundleForClass:self.class], NSBundle.mainBundle];
-    for (NSBundle *bundle in bundles) {
-        NSString *path = [bundle pathForResource:@"camera_switch" ofType:@"png"];
-        UIImage *image = path.length > 0 ? [UIImage imageWithContentsOfFile:path] : nil;
-        if (image != nil) {
-            return [image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        }
-    }
-    return [[UIImage imageNamed:@"camera_switch"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    UIImage *image = [self resourceImageNamed:@"camera_switch" fallbackBase64:LQFaceSwitchBase64];
+    return [image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
 }
 
 - (void)authorizeCamera {
